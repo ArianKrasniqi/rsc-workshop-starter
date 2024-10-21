@@ -1,6 +1,8 @@
 import Image from 'next/image';
-import Button from '@/components/ui/Button';
+import { DeleteButton } from '@/components/ui/DeleteButton';
 import LinkButton from '@/components/ui/LinkButton';
+import { changeFavorite } from '@/data/actions/changeFavorite';
+import { deleteContact } from '@/data/actions/deleteContact';
 import { getContact } from '@/data/services/getContact';
 import GithubLogo from '@/public/github-mark.svg';
 import Favorite from './_components/Favorite';
@@ -38,7 +40,9 @@ export default async function ContactPage({ params }: PageProps) {
           ) : (
             <i>No Name</i>
           )}
-          <Favorite contact={contact} />
+          <form action={changeFavorite.bind(null, contact, !contact.favorite)}>
+            <Favorite contact={contact} />
+          </form>
         </h1>
         {contact.position && <p className="text-2xl">{contact.position}</p>}
         {contact.email && (
@@ -65,9 +69,12 @@ export default async function ContactPage({ params }: PageProps) {
           <LinkButton theme="secondary" href={`/contacts/${params.contactId}/edit`}>
             Edit
           </LinkButton>
-          <Button type="submit" theme="destroy">
-            Delete
-          </Button>
+          <form action={deleteContact.bind(null, params.contactId)}>
+            {/* <Button type="submit" theme="destroy">
+              Delete
+            </Button> */}
+            <DeleteButton />
+          </form>
         </div>
       </div>
     </div>

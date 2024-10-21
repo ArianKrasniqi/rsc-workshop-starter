@@ -1,15 +1,16 @@
 import React from 'react';
-import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
+import SubmitButton from '@/components/ui/SubmitButton';
 import TextArea from '@/components/ui/TextArea';
+import { updateContact } from '@/data/actions/updateContact';
 import { getContact } from '@/data/services/getContact';
 
 export default async function ContactForm({ contactId }: { contactId: string }) {
   const contact = await getContact(contactId);
 
   return (
-    <form className="flex max-w-[40rem] flex-col gap-4 @container">
+    <form action={updateContact.bind(null, contactId)} className="flex max-w-[40rem] flex-col gap-4 @container">
       <div className="grip-rows-6 grid gap-2 @sm:grid-cols-[1fr_4fr] @sm:gap-4">
         <span className="flex">Name</span>
         <div className="flex gap-4">
@@ -50,9 +51,9 @@ export default async function ContactForm({ contactId }: { contactId: string }) 
         <LinkButton theme="secondary" href={`/contacts/${contactId}`}>
           Cancel
         </LinkButton>
-        <Button theme="primary" type="submit">
+        <SubmitButton theme="primary" type="submit">
           Save
-        </Button>
+        </SubmitButton>
       </div>
     </form>
   );

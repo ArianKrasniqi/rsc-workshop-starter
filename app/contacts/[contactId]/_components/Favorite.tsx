@@ -12,6 +12,7 @@ export default function Favorite({ contact }: { contact: Contact }) {
         'flex text-2xl font-normal shadow-none hover:text-yellow-400 hover:shadow-none',
       )}
       aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+      type='submit'
     >
       {favorite ? '★' : '☆'}
     </button>

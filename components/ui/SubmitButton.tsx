@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { useFormStatus } from 'react-dom';
 import Button from './Button';
 import { SpinnerIcon } from './icons';
 import type { button } from './Button';
@@ -18,8 +21,11 @@ export default function SubmitButton({
   theme,
   ...otherProps
 }: Props & React.HTMLProps<HTMLButtonElement> & VariantProps<typeof button>) {
+  const { pending } = useFormStatus();
+  const isSubmitting = loading || pending;
+
   return (
-    <Button theme={theme} {...otherProps} disabled={loading || disabled} type="submit" className={className}>
+    <Button theme={theme} {...otherProps} disabled={isSubmitting || disabled} type="submit" className={className}>
       {loading ? (
         <div className="flex items-center justify-center gap-2">
           {children}
